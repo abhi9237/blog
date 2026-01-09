@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/theme/theme.dart';
 import 'features/auth/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'features/auth/presentation/pages/signin.ui.dart';
+import 'features/bottom_nav/presentation/bloc/bottom_nav_bloc.dart';
+import 'features/bottom_nav/presentation/pages/bottom_nav_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +17,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => serviceLocator<SignUpBloc>()),
         BlocProvider(create: (_) => serviceLocator<SignInBloc>()),
+        BlocProvider(create: (_) => BottomNavBloc()),
       ],
       child: const MyApp(),
     ),
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Blog app',
       theme: AppTheme.darkTheme,
-      home: const SignInScreen(),
+      home: BottomNavScreen(),
     );
   }
 }
