@@ -43,7 +43,7 @@ class CommonDescriptionTextFormFilled extends StatelessWidget {
     return TextFormField(
       obscureText: isObscureText ?? false,
       controller: controller,
-      maxLines: 5,
+      maxLines: 4,
       decoration: InputDecoration(hintText: hintText),
     );
   }

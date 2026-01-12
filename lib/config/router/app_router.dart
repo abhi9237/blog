@@ -1,4 +1,5 @@
 import 'package:blog/features/auth/presentation/pages/signin.ui.dart';
+import 'package:blog/features/blog_upload/presentation/pages/upload_blog.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/bottom_nav/presentation/pages/bottom_nav_screen.dart';
@@ -46,6 +47,12 @@ abstract class AppRouter {
         name: RouteConstant.dashboard,
         builder: (context, state) {
           return BottomNavScreen();
+        }),
+    GoRoute(
+        path: RouteConstant.uploadBlog,
+        name: RouteConstant.uploadBlog,
+        builder: (context, state) {
+          return UploadBlog();
         }),
   ]);
 }

@@ -1,5 +1,7 @@
+import 'package:blog/config/route_constant/route_constant.dart';
 import 'package:blog/core/theme/color_constant.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/common/app_font.dart';
 import '../../../../core/extension/app_extension.dart';
@@ -26,7 +28,9 @@ class UploadBlogSelection extends StatelessWidget {
 
             SizedBox(height: 40),
             WhatBlogCreateWidget(
-              onTap: () {},
+              onTap: () {
+                context.push(RouteConstant.uploadBlog);
+              },
               title: 'Image Blog',
               subTitle:
                   'Best for articles, tutorials, stories, photo-based posts',
