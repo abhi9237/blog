@@ -3,7 +3,13 @@ part of 'bottom_nav_bloc.dart';
 @immutable
 abstract class BottomNavState extends Equatable {
   final int? selectedIndex;
-  const BottomNavState(this.selectedIndex);
+
+  final List<Widget> screens = [
+    Container(),
+    UploadBlogSelection(),
+    Container()
+  ];
+  BottomNavState(this.selectedIndex);
 
   BottomNavState copyWith(int? selectedIndex) {
     return BottomNavInitial(selectedIndex ?? this.selectedIndex);
@@ -14,9 +20,9 @@ abstract class BottomNavState extends Equatable {
 }
 
 final class BottomNavInitial extends BottomNavState {
-  const BottomNavInitial(super.selectedIndex);
+  BottomNavInitial(super.selectedIndex);
 }
 
 class BottomNavSelectIndexState extends BottomNavState {
-  const BottomNavSelectIndexState(super.index);
+  BottomNavSelectIndexState(super.index);
 }

@@ -10,7 +10,10 @@ class BottomNavScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BottomNavBloc, BottomNavState>(
       builder: (context, state) {
-        return Scaffold(bottomNavigationBar: BottomNavWidget(state: state,));
+        return Scaffold(
+          bottomNavigationBar: BottomNavWidget(state: state),
+          body: state.screens.elementAt(state.selectedIndex ?? 0),
+        );
       },
     );
   }

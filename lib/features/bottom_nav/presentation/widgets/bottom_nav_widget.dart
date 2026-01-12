@@ -1,3 +1,4 @@
+import 'package:blog/core/theme/color_constant.dart';
 import 'package:blog/features/bottom_nav/presentation/bloc/bottom_nav_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +18,12 @@ class BottomNavWidget extends StatelessWidget {
       },
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
+      showSelectedLabels: true,
+      selectedItemColor: ColorConstant.pinkColor,
+      unselectedItemColor: Colors.grey,
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Search'),
+        BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Upload'),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
       ],
     );

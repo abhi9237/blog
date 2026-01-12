@@ -2,6 +2,7 @@ import 'package:blog/core/init_dependencies/init_dependencies.dart';
 import 'package:blog/features/auth/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'config/router/app_router.dart';
 import 'core/theme/theme.dart';
 import 'features/auth/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'features/auth/presentation/pages/signin.ui.dart';
@@ -10,7 +11,6 @@ import 'features/bottom_nav/presentation/pages/bottom_nav_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await initDependencies();
   runApp(
     MultiBlocProvider(
@@ -29,11 +29,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      routerConfig: AppRouter.router,
       title: 'Blog app',
       theme: AppTheme.darkTheme,
-      home: BottomNavScreen(),
     );
   }
 }

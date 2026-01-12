@@ -1,6 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:blog/features/blog_upload/presentation/pages/upload_blog.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+
+import '../../../blog_upload/presentation/pages/upload_blog_selection.dart';
 
 part 'bottom_nav_event.dart';
 part 'bottom_nav_state.dart';
