@@ -1,11 +1,13 @@
 import 'package:blog/core/init_dependencies/init_dependencies.dart';
 import 'package:blog/features/auth/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
+import 'package:blog/features/blog_upload/presentation/pages/upload_blog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'config/router/app_router.dart';
 import 'core/theme/theme.dart';
 import 'features/auth/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'features/auth/presentation/pages/signin.ui.dart';
+import 'features/blog_upload/presentation/bloc/upload_blog_bloc.dart';
 import 'features/bottom_nav/presentation/bloc/bottom_nav_bloc.dart';
 import 'features/bottom_nav/presentation/pages/bottom_nav_screen.dart';
 
@@ -18,6 +20,7 @@ void main() async {
         BlocProvider(create: (_) => serviceLocator<SignUpBloc>()),
         BlocProvider(create: (_) => serviceLocator<SignInBloc>()),
         BlocProvider(create: (_) => BottomNavBloc()),
+        BlocProvider(create: (_) => UploadBlogBloc()),
       ],
       child: const MyApp(),
     ),
