@@ -5,9 +5,9 @@ abstract class BottomNavState extends Equatable {
   final int? selectedIndex;
 
   final List<Widget> screens = [
-    Container(),
+    HomeScreen(),
     UploadBlogSelection(),
-    Container()
+    ProfileScreen()
   ];
   BottomNavState(this.selectedIndex);
 

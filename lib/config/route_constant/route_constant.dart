@@ -5,4 +5,5 @@ class RouteConstant {
   static const String uploadBlog = '/uploadBlog';
   static const String otpVerification = '/otpVerification';
   static const String productDetail = '/productDetail';
+  static const String homeDetail = '/homeDetail';
 }

@@ -26,7 +26,10 @@ class UploadBlogCategoriesWidget extends StatelessWidget {
             onTap != null ? onTap!(category) : null;
           },
           borderRadius: BorderRadius.circular(20),
-          child: _buildCategoryChip(category,isSelected: selectedCategories.contains(category)),
+          child: _buildCategoryChip(
+            category,
+            isSelected: selectedCategories.contains(category),
+          ),
         );
       }).toList(),
     );
