@@ -46,6 +46,7 @@ dependencies:
   go_router: ^16.2.4
   custom_image_view: ^5.0.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

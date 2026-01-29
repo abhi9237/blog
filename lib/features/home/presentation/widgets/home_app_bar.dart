@@ -13,7 +13,7 @@ class HomeAppBarWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
       alignment: Alignment.bottomCenter,
-      height: 100,
+      height: 120,
       width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
         color: ColorConstant.blackColor,

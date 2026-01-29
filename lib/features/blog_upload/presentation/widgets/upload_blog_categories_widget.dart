@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:blog/core/extension/app_extension.dart';
+import 'package:blog/core/theme/color_constant.dart';
 import 'package:flutter/material.dart';
 
 class UploadBlogCategoriesWidget extends StatelessWidget {
@@ -40,9 +41,11 @@ Widget _buildCategoryChip(String label, {bool isSelected = false}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     decoration: BoxDecoration(
-      color: isSelected ? Colors.blue : Colors.grey[200],
+      color: isSelected ? ColorConstant.lightPinkColor : Colors.grey[200],
       borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: isSelected ? Colors.blue : Colors.grey[400]!),
+      border: Border.all(
+        color: isSelected ? ColorConstant.lightPinkColor : Colors.grey[400]!,
+      ),
     ),
     child: Text(
       label.capitalizeFirstLetter(),

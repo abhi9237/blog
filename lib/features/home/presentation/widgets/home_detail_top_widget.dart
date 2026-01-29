@@ -21,7 +21,7 @@ class HomeDetailTopWidget extends StatelessWidget {
           'https://images.ft.com/v3/image/raw/ftcms%3A97c7b89e-8743-49bc-82bc-38475aad028b?source=next-article&fit=scale-down&quality=highest&width=1440&dpr=1',
         ),
         Container(
-          padding: EdgeInsets.only(top: 40, left: 10, right: 10),
+          padding: EdgeInsets.only(top: 40, left: 20, right: 20),
           height: MediaQuery.sizeOf(context).height * 0.4,
           width: MediaQuery.sizeOf(context).width,
           decoration: BoxDecoration(

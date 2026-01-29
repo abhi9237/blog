@@ -14,6 +14,9 @@ class CommonTextFormFilled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTapOutside: (v){
+        FocusScope.of(context).unfocus();
+      },
       obscureText: isObscureText ?? false,
       controller: controller,
       decoration: InputDecoration(hintText: hintText),

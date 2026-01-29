@@ -1,21 +1,47 @@
 part of 'upload_blog_bloc.dart';
 
 class UploadBlogState extends Equatable {
-  final List category = [
-    'trending','sports','music','entertainment','technology','song','clothes',
+  // Static categories (not part of state)
+  static const List categories = [
+    'trending',
+    'sports',
+    'music',
+    'entertainment',
+    'technology',
+    'song',
+    'clothes',
   ];
-  final List? selectedCategory;
+  final File? blogImage;
+  final List selectedCategory;
+  final bool isVisible;
 
-  UploadBlogState({this.selectedCategory});
+  const UploadBlogState({
+    this.selectedCategory = const [],
+    this.isVisible = true,
+    this.blogImage,
+  });
 
-  UploadBlogState copyWith(List? selectedCategory) {
+  UploadBlogState copyWith({
+    List? selectedCategory,
+    bool? isVisible,
+    File? blogImage,
+  }) {
     return UploadBlogState(
       selectedCategory: selectedCategory ?? this.selectedCategory,
+      isVisible: isVisible ?? this.isVisible,
+      blogImage: blogImage ?? this.blogImage,
     );
   }
 
   @override
-  List<Object?> get props => [category, selectedCategory];
+  List<Object?> get props => [
+    blogImage,
+    selectedCategory,
+    isVisible,
+    categories,
+  ];
 }
 
-final class UploadBlogInitial extends UploadBlogState {}
+class UploadBlogInitial extends UploadBlogState {
+  const UploadBlogInitial() : super();
+}

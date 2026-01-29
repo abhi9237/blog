@@ -12,7 +12,7 @@ class HomeDetailBottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       width: MediaQuery.sizeOf(context).width,
 
       child: Column(
