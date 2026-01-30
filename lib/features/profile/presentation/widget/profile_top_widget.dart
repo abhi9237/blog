@@ -15,7 +15,6 @@ class ProfileTopWidget extends StatelessWidget {
           colors: [ColorConstant.lightPinkColor, ColorConstant.pinkColor],
         ),
       ),
-
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

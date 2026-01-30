@@ -12,7 +12,7 @@ class UploadBlogState extends Equatable {
     'clothes',
   ];
   final File? blogImage;
-  final List selectedCategory;
+  final List<String> selectedCategory;
   final bool isVisible;
 
   const UploadBlogState({
@@ -22,7 +22,7 @@ class UploadBlogState extends Equatable {
   });
 
   UploadBlogState copyWith({
-    List? selectedCategory,
+    List<String>? selectedCategory,
     bool? isVisible,
     File? blogImage,
   }) {
@@ -44,4 +44,16 @@ class UploadBlogState extends Equatable {
 
 class UploadBlogInitial extends UploadBlogState {
   const UploadBlogInitial() : super();
+}
+
+class UploadBlogLoading extends UploadBlogState {
+  const UploadBlogLoading() : super();
+}
+
+class UploadBlogSuccess extends UploadBlogState {
+  const UploadBlogSuccess() : super();
+}
+
+class UploadBlogFailure extends UploadBlogState {
+  const UploadBlogFailure() : super();
 }

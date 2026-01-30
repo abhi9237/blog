@@ -7,6 +7,11 @@ import '../../features/auth/data/data_sources/auth_remote_source.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repository/auth_repo.dart';
 import '../../features/auth/domain/usecases/user_sign_up.dart';
+import '../../features/blog_upload/data/data_sources/blog_upload_data_source.dart';
+import '../../features/blog_upload/data/repository/blog_upload_repository_impl.dart';
+import '../../features/blog_upload/domian/repository/upload_blog_repo.dart';
+import '../../features/blog_upload/domian/usecases/upload_blog_usecase.dart';
+import '../../features/blog_upload/presentation/bloc/upload_blog_bloc.dart';
 import '../secrets/app_secrets.dart';
 
 final serviceLocator = GetIt.instance;
@@ -34,7 +39,7 @@ Future<void> initDependencies() async {
   );
 
   serviceLocator.registerFactory<UserSignIn>(
-        () => UserSignIn(serviceLocator()),
+    () => UserSignIn(serviceLocator()),
   );
 
   serviceLocator.registerLazySingleton(
@@ -42,6 +47,24 @@ Future<void> initDependencies() async {
   );
 
   serviceLocator.registerLazySingleton(
-        () => SignInBloc(userSignIn: serviceLocator()),
+    () => SignInBloc(userSignIn: serviceLocator()),
+  );
+
+  serviceLocator.registerFactory<BlogUploadDataSources>(
+    () => BlogUploadDataSourcesImpl(
+      supabaseClient: serviceLocator<SupabaseClient>(),
+    ),
+  );
+
+  serviceLocator.registerFactory<UploadBlogRepo>(
+    () => BlogUploadImplementation(serviceLocator()),
+  );
+
+  serviceLocator.registerFactory<UploadBlogUseCase>(
+    () => UploadBlogUseCase(serviceLocator()),
+  );
+
+  serviceLocator.registerFactory<UploadBlogBloc>(
+        () => UploadBlogBloc(uploadBlogUseCase: serviceLocator()),
   );
 }

@@ -19,8 +19,9 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => serviceLocator<SignUpBloc>()),
         BlocProvider(create: (_) => serviceLocator<SignInBloc>()),
+        BlocProvider(create: (_) => serviceLocator<UploadBlogBloc>()),
         BlocProvider(create: (_) => BottomNavBloc()),
-        BlocProvider(create: (_) => UploadBlogBloc()),
+
       ],
       child: const MyApp(),
     ),

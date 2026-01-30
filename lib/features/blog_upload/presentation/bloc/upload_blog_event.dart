@@ -17,7 +17,25 @@ class UploadBlogVisibilityEvent extends UploadBlogEvent {
 }
 
 class UploadBlogImageEvent extends UploadBlogEvent {
- final File image;
+  final File image;
 
   UploadBlogImageEvent(this.image);
+}
+
+class UploadUserBlogEvent extends UploadBlogEvent {
+  final BuildContext context;
+  final File? image;
+  final String title;
+  final List<String> category;
+  final bool isPublic;
+  final String content;
+
+  UploadUserBlogEvent(
+    this.image,
+    this.title,
+    this.category,
+    this.isPublic,
+    this.content,
+      this.context
+  );
 }
