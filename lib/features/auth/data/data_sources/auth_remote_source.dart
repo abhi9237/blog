@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/common/toast.dart';
 import '../../../../core/error/exception.dart';
 import '../../../../core/exception/server_exception.dart';
+import '../../../../core/secure_storage/secure_storage.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<String> signUpWithEmailPassword({
@@ -15,7 +17,7 @@ abstract interface class AuthRemoteDataSource {
     required File image,
   });
 
-  Future<String> logInWithEmailPassword({
+  Future<AuthResponse> logInWithEmailPassword({
     required String email,
     required String password,
   });
@@ -23,10 +25,14 @@ abstract interface class AuthRemoteDataSource {
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final SupabaseClient supabaseClient;
-  AuthRemoteDataSourceImpl({required this.supabaseClient});
+  final SecureStorageService secureStorageService;
+  AuthRemoteDataSourceImpl({
+    required this.supabaseClient,
+    required this.secureStorageService,
+  });
 
   @override
-  Future<String> logInWithEmailPassword({
+  Future<AuthResponse> logInWithEmailPassword({
     required String email,
     required String password,
   }) async {
@@ -36,7 +42,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         password: password,
       );
       if (response.user != null) {
-        return response.user!.id;
+        secureStorageService.saveTokens(
+          accessToken: response.session?.accessToken ?? '',
+        );
+        return response;
       } else {
         throw ServerException('Login failed: User is null');
       }
@@ -55,8 +64,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String name,
     required String password,
     required File image,
-  }) async
-  {
+  }) async {
     try {
       final response = await supabaseClient.auth.signUp(
         password: password,
@@ -65,7 +73,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
 
       if (response.user != null) {
-        await insertUserImage(file: image,userID: response.user?.id ??'');
+        await insertUserImage(file: image, userID: response.user?.id ?? '');
         return response.user!.id;
       } else {
         // This case might indicate email confirmation is required.
@@ -84,24 +92,27 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
-  Future<void> insertUserImage({required File file,required String userID}) async
-  {
+  Future<void> insertUserImage({
+    required File file,
+    required String userID,
+  }) async {
     try {
-    log('userID==>$userID');
-
+      log('userID==>$userID');
 
       final path = '$userID/avatar'; // MUST MATCH POLICY
       log('path==>$path');
       log('file==>$file');
 
-      await supabaseClient.storage.from('profile_images').upload(
-        path,
-        file,
-        fileOptions: const FileOptions(
-          upsert: true,
-          contentType: 'image/png',
-        ),
-      );
+      await supabaseClient.storage
+          .from('profile_images')
+          .upload(
+            path,
+            file,
+            fileOptions: const FileOptions(
+              upsert: true,
+              contentType: 'image/png',
+            ),
+          );
     } on StorageException catch (e) {
       log('StorageException ==> ${e.message}');
       rethrow;
@@ -110,5 +121,4 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       rethrow;
     }
   }
-
 }

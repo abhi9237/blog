@@ -1,9 +1,12 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:blog/config/route_constant/route_constant.dart';
 import 'package:blog/core/error/exception.dart';
 import 'package:blog/features/auth/presentation/bloc/sign_in_bloc/sign_in_event.dart';
 import 'package:blog/features/auth/presentation/bloc/sign_in_bloc/sign_in_state.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/common/common_methods.dart';
 import '../../../domain/usecases/user_sign_in.dart';
@@ -34,6 +37,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     } else {
       emit(SignInLoadingState());
       await signInUser(
+        context: event.context!,
         email: event.email ?? '',
         password: event.password ?? '',
         emit: emit,
@@ -44,6 +48,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   Future<void> signInUser({
     required String email,
     required String password,
+    required BuildContext context,
     required Emitter emit,
   }) async {
     var res = await _userSignIn(
@@ -56,6 +61,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         log('failure.message=>${failure.message}');
       },
       (user) {
+        context.push(RouteConstant.dashboard);
         emit(SignInSuccessState());
       },
     );

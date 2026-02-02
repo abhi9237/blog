@@ -28,7 +28,9 @@ class UploadBlogBloc extends Bloc<UploadBlogEvent, UploadBlogState> {
     SelectCategoryEvent event,
     Emitter<UploadBlogState> emit,
   ) {
-    final List<String> updatedCategories = List.from(state.selectedCategory ?? []);
+    final List<String> updatedCategories = List.from(
+      state.selectedCategory ?? [],
+    );
 
     if (updatedCategories.contains(event.value)) {
       updatedCategories.remove(event.value);
@@ -54,7 +56,7 @@ class UploadBlogBloc extends Bloc<UploadBlogEvent, UploadBlogState> {
     emit(state.copyWith(blogImage: event.image));
   }
 
-  void uploadUserBlog(UploadUserBlogEvent event, Emitter emit) {
+  void uploadUserBlog(UploadUserBlogEvent event, Emitter emit) async {
     if (event.image == null) {
       showToastMessage(event.context, 'Please select image');
     } else if (event.title.isEmpty) {
@@ -64,13 +66,16 @@ class UploadBlogBloc extends Bloc<UploadBlogEvent, UploadBlogState> {
     } else if (event.content.isEmpty) {
       showToastMessage(event.context, 'Please enter content');
     } else {
-      uploadBlog(
+      emit(UploadBlogLoading());
+      await uploadBlog(
         title: event.title,
         content: event.content,
         image: event.image ?? File(''),
         category: event.category,
         isPublic: event.isPublic,
-      );
+      ).then((v){
+        emit(UploadBlogSuccess());
+      });
     }
   }
 

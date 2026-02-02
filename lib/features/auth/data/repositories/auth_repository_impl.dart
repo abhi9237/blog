@@ -5,13 +5,14 @@ import 'package:blog/core/error/exception.dart';
 import 'package:blog/features/auth/data/data_sources/auth_remote_source.dart';
 import 'package:blog/features/auth/domain/repository/auth_repo.dart';
 import 'package:fpdart/src/either.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthRepositoryImplementation implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
   const AuthRepositoryImplementation(this.remoteDataSource);
 
   @override
-  Future<Either<Failure, String>> logInWithEmailPassword({
+  Future<Either<Failure, AuthResponse>> logInWithEmailPassword({
     required String email,
     required String password,
   }) async {

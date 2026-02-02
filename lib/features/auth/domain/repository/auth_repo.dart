@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:blog/core/common/failure.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthRepository {
   Future<Either<Failure, String>> signUpWithEmailPassword({
@@ -11,7 +12,7 @@ abstract interface class AuthRepository {
     required File image,
   });
 
-  Future<Either<Failure, String>> logInWithEmailPassword({
+  Future<Either<Failure, AuthResponse>> logInWithEmailPassword({
     required String email,
     required String password,
   });

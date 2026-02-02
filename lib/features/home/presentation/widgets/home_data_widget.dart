@@ -1,6 +1,7 @@
 import 'package:blog/config/route_constant/route_constant.dart';
 import 'package:blog/core/extension/app_extension.dart';
 import 'package:blog/core/theme/color_constant.dart';
+import 'package:blog/model/blog_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -8,7 +9,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/common/app_font.dart';
 
 class HomeDataWidget extends StatelessWidget {
-  const HomeDataWidget({super.key});
+  final List<BlogModel> allBlogList;
+  const HomeDataWidget({super.key, required this.allBlogList});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +18,13 @@ class HomeDataWidget extends StatelessWidget {
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.only(top: 10),
-        itemCount: 10,
+        itemCount: allBlogList.length,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
+          var data = allBlogList[index];
           return HomeData(
+            image: data.imageUrl,
+           title: data.title,
             onTap: () {
               context.push(RouteConstant.homeDetail);
             },
@@ -32,7 +37,18 @@ class HomeDataWidget extends StatelessWidget {
 
 class HomeData extends StatelessWidget {
   final VoidCallback onTap;
-  const HomeData({super.key, required this.onTap});
+  final String? image;
+  final String? title;
+  final String? location;
+  final String? createdAt;
+  const HomeData({
+    super.key,
+    required this.onTap,
+    this.title,
+    this.image,
+    this.createdAt,
+    this.location,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +63,7 @@ class HomeData extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
             image: NetworkImage(
-              'https://images.goodreturns.in/img/2025/03/us-stock-markets-1742223553.jpg',
+             image ??'',
             ),
             fit: BoxFit.cover,
           ),
@@ -98,7 +114,7 @@ class HomeData extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'The Fresh Market',
+                    title ??'',
                     style: appStyle(18, fontFamily: FontHelper.natoBold),
                   ),
 
@@ -106,7 +122,7 @@ class HomeData extends StatelessWidget {
                     children: [
                       Icon(Icons.location_pin, size: 14),
                       Text(
-                        'Chandigarh',
+                        location ??'',
                         style: appStyle(
                           12,
                           fontFamily: FontHelper.natoRegular,
@@ -117,7 +133,7 @@ class HomeData extends StatelessWidget {
                       Icon(Icons.watch_later_outlined, size: 14),
                       SizedBox(width: 5),
                       Text(
-                        '25 minutes ago',
+                       createdAt ??'',
                         style: appStyle(
                           12,
                           fontFamily: FontHelper.natoRegular,

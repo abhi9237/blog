@@ -27,6 +27,11 @@ class _UploadBlogState extends State<UploadBlog> {
   final TextEditingController blogContentController = TextEditingController();
   final ImagePicker imagePicker = ImagePicker();
 
+  clearController (){
+    titleController.clear();
+    blogContentController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UploadBlogBloc, UploadBlogState>(
@@ -38,21 +43,24 @@ class _UploadBlogState extends State<UploadBlog> {
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                child: CommonButton(
-                  buttonText: 'Upload',
-                  onTap: () {
-                    context.read<UploadBlogBloc>().add(
-                      UploadUserBlogEvent(
-                        state.blogImage,
-                        titleController.text,
-                        state.selectedCategory,
-                        state.isVisible,
-                        blogContentController.text,
-                        context,
+                child: state is UploadBlogLoading
+                    ? CircularProgressIndicator(color: ColorConstant.pinkColor)
+                    : CommonButton(
+                        buttonText: 'Upload',
+                        onTap: () {
+                          context.read<UploadBlogBloc>().add(
+                            UploadUserBlogEvent(
+                              state.blogImage,
+                              titleController.text,
+                              state.selectedCategory,
+                              state.isVisible,
+                              blogContentController.text,
+                              context,
+                            ),
+                          );
+                          clearController();
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),

@@ -6,3 +6,8 @@ abstract interface class UseCase<SuccessType, Params> {
   Future<Either<Failure, SuccessType>> uploadImage(Params params);
   Future<Either<Failure, SuccessType>> uploadUserProfile(Params params);
 }
+
+abstract interface class HomeUseCase<SuccessType, Params> {
+  Future<Either<Failure, SuccessType>> call(Params params);
+
+}

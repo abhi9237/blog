@@ -9,7 +9,7 @@ import '../route_constant/route_constant.dart';
 
 abstract class AppRouter {
   static GoRouter router = GoRouter(
-    initialLocation: RouteConstant.dashboard,
+    initialLocation: RouteConstant.login,
 
     // redirect: (BuildContext context, GoRouterState state) async {
     //

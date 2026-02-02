@@ -1,6 +1,9 @@
 import 'dart:developer';
 
+import 'package:blog/config/route_constant/route_constant.dart';
 import 'package:blog/core/common/custom_route.dart';
+import 'package:blog/core/init_dependencies/init_dependencies.dart';
+import 'package:blog/core/secure_storage/secure_storage.dart';
 import 'package:blog/core/theme/color_constant.dart';
 import 'package:blog/features/auth/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:blog/features/auth/presentation/bloc/sign_in_bloc/sign_in_event.dart';
@@ -8,6 +11,8 @@ import 'package:blog/features/auth/presentation/bloc/sign_in_bloc/sign_in_state.
 import 'package:blog/features/auth/presentation/pages/signup.ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/common/common_button.dart';
 import '../../../../core/common/common_text_form_filled.dart';
@@ -24,11 +29,30 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passWordController = TextEditingController();
   bool isLoading = false;
+  final supabase = serviceLocator<SupabaseClient>();
 
   updateLoader() {
     setState(() {
       isLoading = !isLoading;
     });
+  }
+
+  void initLogin() {
+    final session = supabase.auth.currentSession;
+    if (session != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        context.push(RouteConstant.dashboard);
+      });
+    } else {
+      showToastMessage(context, 'Session Expired Please login');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initLogin();
   }
 
   @override
